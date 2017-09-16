@@ -117,3 +117,12 @@ let g:typescript_indent_disable = 0
 "	\ endif
 "      au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
 "endif
+let g:tmuxline_preset = {
+      \'a'    : ['#S'],
+      \'win'  : ['#I', '#W'],
+      \'cwin' : ['#I', '#W'],
+      \'y'    : ['%R', '%a', '%B'],
+      \'z'    : '♫ #(mpc current)',
+      \ 'options':{
+      \ 'status-justify': 'left'}
+      \}
