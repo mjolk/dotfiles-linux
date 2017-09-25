@@ -3,7 +3,7 @@
 autocmd Filetype typescript setlocal ts=2 sw=2 sts=0 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 sts=0 expandtab
 autocmd FileType javascript setlocal ts=4 sw=4 sts=0 expandtab
-autocmd FileType go setlocal ts=8 sw=8 noexpandtab
+"autocmd FileType go setlocal ts=8 sw=8 noexpandtab
 call pathogen#infect()
 filetype plugin indent on
 syntax on 
@@ -12,12 +12,13 @@ set nu
 "set guifont=Source\ Code\ Pro\ for\ Powerline:h13
 "set guifont=Ubuntui\ Mono\ derivative\ Powerline:h13
 "set noantialias
-set t_Co=256
+"set t_Co=256
 set background=dark
 colorscheme inkpot2
 set nocursorcolumn
 syntax sync minlines=256
 set re=1
+set ttimeoutlen=50
 set nowrap
 set showmatch
 set noignorecase
@@ -32,7 +33,7 @@ set novisualbell
 set ruler
 set mouse=a
 set laststatus=2
-set wildignore+=*/node_modules/*,*.so,*.swp,*.zip
+set wildignore+=*/node_modules/*,*.so,*.swp,*.zip,*/vendor/*
 let mapleader = ","
 "let g:CSApprox_loaded = 1
 let g:CSApprox_attr_map = { 'bold' : 'BOLD', 'italic' : '', 'sp' : '' }
@@ -65,17 +66,19 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
     \ }
 "autocmd FileType * nested :call tagbar#autoopen(0)
+let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_list_type = "quickfix"
-"let g:go_highlight_fields = 1
-autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+let g:go_highlight_fields = 1
+let g:go_build_tags = "development"
+"autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+"autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+"autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+"autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 set completeopt-=preview
 "let g:SuperTabDefaultCompletionType = "context"
 let g:inkpot_black_background=1
@@ -126,3 +129,7 @@ let g:tmuxline_preset = {
       \ 'options':{
       \ 'status-justify': 'left'}
       \}
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|vendor$\|node_modules$',
+  \ 'file': '\.exe$\|\.so$\|\.dat$'
+  \ }

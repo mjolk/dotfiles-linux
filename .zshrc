@@ -7,6 +7,7 @@ unsetopt beep
 bindkey -v
 
 # vi mode cli
+ZLE_RPROMPT_INDENT=0
 right_arr=$'\ue0b1'
 right_arr_b=$'\ue0b0'
 left_arr=$'\ue0b3'
@@ -34,6 +35,7 @@ function git_prompt_info() {
 	echo "${ref#refs/heads/}"
 }
 PROMPT='%F{blue}%1~%f %F{red}➜%f '
+#RPROMPT='$VP %F{blue}$(git_ahead_behind) $(git_current_status) $(git_prompt_info)%f %F{green}$git_branch%f'
 RPROMPT='$VP %F{blue}$(git_ahead_behind) $(git_current_status) $(git_prompt_info)%f %F{green}$git_branch%f'
 # Set SSH to use gpg-agent
 unset SSH_AGENT_PID
@@ -165,34 +167,34 @@ function git_current_status() {
 
     # Format added.
     if (( added > 0 )); then
-      git_added="➕"
+      git_added=$'\u2731'
     fi
 
     # Format deleted.
     if (( deleted > 0 )); then
-      git_deleted="✘"
+      git_deleted=$'\u2718'
     fi
 
     # Format modified.
     if (( modified > 0 )); then
-      git_modified="✔"
+      git_modified=$'\u2714'
     fi
 
     # Format renamed.
     if (( renamed > 0 )); then
-      git_renamed="⇡"
+      git_renamed=$'\u0040'
     fi
 
     if (( unmerged > 0 )); then
-     git_unmerged="⇈"
+     git_unmerged=$'\u2716'
     fi
 
     # Format untracked.
     if (( untracked > 0 )); then
-     git_untracked="✪"
+     git_untracked=$'\u25cf'
     fi
 
-    echo ${git_added} ${git_deleted} ${git_modified} ${git_renamed} ${git_unmerged} ${git_untracked}
+    echo $git_added $git_deleted $git_modified $git_renamed $git_unmerged $git_untracked
 }
 
 function git_ahead_behind() {
@@ -209,13 +211,13 @@ function git_ahead_behind() {
     # Format ahead.
     ahead="$ahead_and_behind[(w)1]"
     if (( ahead > 0 )); then
-      git_ahead="↑"
+      git_ahead=$'\u2b06'
     fi
 
     # Format behind.
     behind="$ahead_and_behind[(w)2]"
     if (( behind > 0 )); then
-      git_behind="↓"
+      git_behind=$'\u2b07'
     fi
     
     echo ${git_ahead} ${git_behind}
