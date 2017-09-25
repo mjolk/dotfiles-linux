@@ -35,7 +35,6 @@ function git_prompt_info() {
 	echo "${ref#refs/heads/}"
 }
 PROMPT='%F{blue}%1~%f %F{red}➜%f '
-#RPROMPT='$VP %F{blue}$(git_ahead_behind) $(git_current_status) $(git_prompt_info)%f %F{green}$git_branch%f'
 RPROMPT='$VP %F{blue}$(git_ahead_behind) $(git_current_status) $(git_prompt_info)%f %F{green}$git_branch%f'
 # Set SSH to use gpg-agent
 unset SSH_AGENT_PID
