@@ -288,3 +288,22 @@ grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).r
 
 #[[ /usr/bin/kubectl ]] && source <(kubectl completion zsh)
 source <(fzf --zsh)
+
+#cmake stuff
+function build() {
+DIR="build/$1"
+BUILD_TYPE="$2"
+SHARED="$3"
+
+rm -rf "$DIR"
+mkdir -p "$DIR"
+cmake -S. -B"$DIR" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DBUILD_SHARED_LIBS="$SHARED" -GNinja
+}
+
+#hugepages
+function htlb() {
+  SIZE="$1"
+
+ sudo sysctl -w vm.nr_hugepages=$SIZE
+}
+
