@@ -41,10 +41,10 @@ set $menu fuzzel
 #   transform 180
 #   bg ~/images/iss048.jpg fill
 # }
-output eDP-2 {
+output "eDP-2 'Thermotrex Corporation TL140ADXP02-0 Unknown'" {
   scale 2
   pos 2560,0 
-  mode 2560x1600@165Hz
+  mode 2560x1600@120Hz
   bg ~/images/iss074e0150285orig.jpg fill
 }
 input "10248:513:ASUF1204:00_2808:0201_Touchpad" {
@@ -62,6 +62,8 @@ exec swayidle -w timeout 3600 'systemctl suspend'
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+
+exec mako
 
 ### Input configuration
 #
