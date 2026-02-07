@@ -1,0 +1,13 @@
+[Match]
+Name=wlan0
+
+[Link]
+RequiredForOnline=routable
+
+[Network]
+DHCP=yes
+IPv4Forwarding=true
+DNS=8.8.8.8
+
+[DHCP]
+UseDNS=false
