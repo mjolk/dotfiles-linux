@@ -72,6 +72,8 @@ export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
 export XDG_CURRENT_DESKTOP=sway
+export XDG_RUNTIME_DIR="/run/user/$UID"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
@@ -79,7 +81,6 @@ export PAGER='less'
 export JAVA_OPTS="-Xmx26g"
 export ANT_OPTS="-Xmx4g"
 export MAVEN_OPTS="-Xmx4g"
-#export LC_ALL="en_US.UTF-8"
 export ANDROID_HOME=~/androidsdk
 export ANDROID_NDK_HOME=~/androidsdk/ndk/28.0.12433566
 export ANDROID_NDK_TOOLCHAIN_DIR=~/androidsdk/ndk/28.0.12433566 
