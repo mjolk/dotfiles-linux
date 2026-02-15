@@ -45,7 +45,10 @@ output DP-2 {
 #
 # Example configuration:
 #
-exec swayidle -w timeout 3600 'systemctl suspend'
+exec swayidle -w timeout 300 'swaylock -f -c 000000' \
+                 idlehint 300 \
+                 before-sleep 'swaylock -f'
+
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
@@ -216,7 +219,8 @@ bindsym $mod+r mode "resize"
     bindsym $mod+p exec grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')" $(HOME)/images/$(date + '%s.png')
     bindsym $mod+Shift+p grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') $(HOME)/images/$(date + '%s.png')
 
-    #bindsym $mod+x exec fuzzel
+    bindsym $mod+x exec makoctl dismiss -a 
+    bindsym $mod+Ctrl+l exec swaylock -f
 
 #
 # Status Bar:
@@ -224,15 +228,17 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
+    font pango:SauceCodePro Nerd Font Bold 10
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%D %T'; do sleep 1; done
+    status_command while ~/.config/sway/status.sh station; do sleep 1; done
 
     colors {
         statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        background #ff8e8e
+        focused_workspace  #E3D213 #ff8e8e #E3D213
+        inactive_workspace  #ff8e8e #ff8e8e #ffffff
     }
 }
 
