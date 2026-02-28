@@ -1,7 +1,24 @@
 #!/bin/zsh
-function mobile {
+
+function music() {
+
+  music=$(playerctl metadata)
+  parts=(${(ps:\n:)music})
+  sparts=(${(ps:  :)parts[4]})
+  ssparts=(${(ps:  :)parts[5]})
+  sssparts=(${(ps:  :)parts[6]})
+  return "$ssparts[2]$sparts[2]$sssparts[2]"
+
+}
+
+function mobile() {
 
 now=$(date +'%d %b %T');
+music=$(playerctl metadata)
+parts=(${(ps:\n:)music})
+sparts=(${(ps:  :)parts[4]})
+ssparts=(${(ps:  :)parts[5]})
+sssparts=(${(ps:  :)parts[6]})
 power=$(cat /sys/class/power_supply/BAT0/capacity);
 wifi=$(iwctl station wlan0 show);
 parts=(${(@s/ /)wifi})
@@ -21,15 +38,19 @@ fi
 if (( $power < 20)); then
   powerstr=$'\uf244';
 fi
-echo "$wificonnected $powerstr $power% $now \ueeef  ";
+echo "\uf001 $ssparts[2]$sssparts[2]$sparts[2] $wificonnected $powerstr $power% $now \ueeef  ";
 }
 
-function station {
+function station() {
 
 now=$(date +'%d %b %T');
-music=$(mpc current)
+music=$(playerctl metadata)
+parts=(${(ps:\n:)music})
+sparts=(${(ps:  :)parts[4]})
+ssparts=(${(ps:  :)parts[5]})
+sssparts=(${(ps:  :)parts[6]})
+echo "\uf001 $ssparts[2]$sssparts[2]$sparts[2] $now";
 
-echo "\uf001 $music $now";
 }
 
 if [ "$1" = "station" ]; then
