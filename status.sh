@@ -4,10 +4,9 @@ function music() {
 
   music=$(playerctl metadata)
   parts=(${(ps:\n:)music})
-  sparts=(${(ps:  :)parts[4]})
-  ssparts=(${(ps:  :)parts[5]})
-  sssparts=(${(ps:  :)parts[6]})
-  return "$ssparts[2]$sparts[2]$sssparts[2]"
+  for i in $parts; do
+    echo "part: $parts[$i];\n"
+  done
 
 }
 
@@ -46,10 +45,31 @@ function station() {
 now=$(date +'%d %b %T');
 music=$(playerctl metadata)
 parts=(${(ps:\n:)music})
-sparts=(${(ps:  :)parts[4]})
-ssparts=(${(ps:  :)parts[5]})
-sssparts=(${(ps:  :)parts[6]})
-echo "\uf001 $ssparts[2]$sssparts[2]$sparts[2] $now";
+artist=""
+album=""
+title=""
+for i in {1..${#parts[@]}}; do
+  #echo "partt: ${parts[i]}\n"
+  if [ "${parts[i]#*album}" != "$parts[i]" ]; then
+    #echo "found album part $parts[i]"
+    pp=(${(ps:    :)parts[i]})
+    album="${pp[@]: -1}"
+    album=${${album%${album##*[^[:blank:]]}}#${${album%${album##*[^[:blank:]]}}%%[^[:blank:]]*}}
+  fi
+  if [ "${parts[i]#*artist}" != "$parts[i]" ]; then
+    #echo "found artist part $parts[i]"
+    pp=(${(ps:    :)parts[i]})
+    artist="${=${pp[@]: -1}}"
+    artist=${${artist%${artist##*[^[:blank:]]}}#${${artist%${artist##*[^[:blank:]]}}%%[^[:blank:]]*}}
+  fi
+  if [ "${parts[i]#*title}" != "$parts[i]" ]; then
+    #echo "found title part $parts[i]"
+    pp=(${(ps:    :)parts[i]})
+    title="${pp[@]: -1}"
+    title=${${title%${title##*[^[:blank:]]}}#${${title%${title##*[^[:blank:]]}}%%[^[:blank:]]*}}
+  fi
+done
+echo "\uf001 $artist - $title - $album $now";
 
 }
 
