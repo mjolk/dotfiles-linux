@@ -69,7 +69,7 @@ for i in {1..${#parts[@]}}; do
     title=${${title%${title##*[^[:blank:]]}}#${${title%${title##*[^[:blank:]]}}%%[^[:blank:]]*}}
   fi
 done
-echo "\uf001 $artist - $title - $album $now";
+echo "\uf001 $artist $title $now";
 
 }
 
