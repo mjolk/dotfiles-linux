@@ -5,6 +5,8 @@ SAVEHIST=1000
 setopt extendedglob
 unsetopt beep
 bindkey -v
+#don not forget to create .zsh dir and populate it
+fpath=(~/.zsh $fpath)
 
 # vi mode cli
 ZLE_RPROMPT_INDENT=0
@@ -27,7 +29,6 @@ zstyle :compinstall filename '/home/mjolk/.zshrc'
 autoload -Uz compinit
 compinit -i
 _comp_options+=(globdots) # With hidden files
-#source /opt/azure-cli/bin/az.completion.sh
 autoload -Uz promptinit
 promptinit
 #alias vim="nvim"
@@ -73,6 +74,7 @@ export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
 export XDG_CURRENT_DESKTOP=sway
+export XDG_CONFIG_HOME=$HOME/.config
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
@@ -92,6 +94,7 @@ export GOPATH=~/golocal
 export GOOS=linux
 export GOARCH=amd64
 export GOROOT_BOOTSTRAP=/usr/local/go1.4
+export GOPRIVATE=bitbucket.org/be-mobile
 export RUSTICL_ENABLE=radeonsi
 export KERAS_BACKEND="jax"
 export HSA_OVERRIDE_GFX_VERSION=11.0.0
@@ -287,9 +290,6 @@ function grim_w() {
 grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')" "${HOME}/images/${NAME}_$(date +%Y_%m_%d_%I_%M_%p).png"
 } 
 
-#[[ /usr/bin/kubectl ]] && source <(kubectl completion zsh)
-source <(fzf --zsh)
-
 #cmake stuff
 function build() {
 DIR="build/$1"
@@ -311,3 +311,7 @@ function htlb() {
 function add_ssh_key() {
  gpg-connect-agent "keyattr $1 Use-for-ssh: true" /bye 
 }
+
+#source /opt/azure-cli/bin/az.completion.sh
+[[ /usr/bin/kubectl ]] && source <(kubectl completion zsh)
+source <(fzf --zsh)
