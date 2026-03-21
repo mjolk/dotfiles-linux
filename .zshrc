@@ -5,7 +5,7 @@ SAVEHIST=1000
 setopt extendedglob
 unsetopt beep
 bindkey -v
-#don not forget to create .zsh dir and populate it
+#do not forget to create .zsh dir and populate it
 fpath=(~/.zsh $fpath)
 
 # vi mode cli
