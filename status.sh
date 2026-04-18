@@ -13,13 +13,15 @@ function music() {
 function mobile() {
 
 now=$(date +'%d %b %T');
-music=$(playerctl metadata --format "playing: {{ artist }} {{ album }} {{ title }}");
+#playerctl spams stderr if you're not running a player which is very often, bug report open since 2024...
+#music=$(playerctl metadata --format "playing: {{ artist }} {{ album }} {{ title }}");
 power=$(cat /sys/class/power_supply/BAT0/capacity);
 wifi=$(iwctl station wlan0 show);
 parts=(${(@s/ /)wifi})
 wificonnected=""
 if [[ $parts[12] = "connected" ]]; then
-  wificonnected="\uf0c2  $parts[16]" 
+  wificonnected="\uf0c2  $parts[16]"
+  #there are geniuses that use spaces in their ssids, need to add more parts after part 16 then
 else
   wificonnected="\uebaa "
 fi
@@ -33,14 +35,14 @@ fi
 if (( $power < 20)); then
   powerstr=$'\uf244';
 fi
-echo "\uf001 $music $wificonnected $powerstr $power% $now \ueeef  ";
+echo "\uf001 $wificonnected $powerstr $power% $now \ueeef  ";
 }
 
 function station() {
 
 now=$(date +'%d %b %T');
-music=$(playerctl metadata --format "playing: {{ artist }} {{ album }} {{ title }}");
-echo "\uf001 $music $now";
+#music=$(playerctl metadata --format "playing: {{ artist }} {{ album }} {{ title }}");
+echo "\uf001 $now";
 
 }
 
