@@ -145,6 +145,7 @@ if [ "$actual" != "$checksum" ]; then
 fi
 
 sudo chmod u+x $binary_path
+sudo rm /usr/local/bin/claude
 sudo ln -s $binary_path /usr/local/bin/claude 
 
 
